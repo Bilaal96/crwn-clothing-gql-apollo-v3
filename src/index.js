@@ -10,6 +10,7 @@ import { ApolloClient } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import { store, persistor } from './redux/store';
+import { typeDefs, resolvers } from './graphql/resolvers';
 
 import './index.css';
 import App from './App';
@@ -21,6 +22,15 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   link: httpLink,
   cache,
+  typeDefs,
+  resolvers,
+});
+
+// Set Initial Values for In-Memory Cache after instantiation of Client
+client.writeData({
+  data: {
+    isCartHidden: true,
+  },
 });
 
 ReactDOM.render(
