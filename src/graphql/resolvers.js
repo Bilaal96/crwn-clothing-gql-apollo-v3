@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, getCartItemCount } from './cart.utils';
 
 // Extend Backend Mutation Schema to include new type: ToggleCartHidden
 // NOTE: type Mutation defines all possible mutation operations
@@ -30,6 +30,13 @@ const GET_CART_ITEMS = gql`
   }
 `;
 
+// retrieve itemCount value from local cache
+const GET_ITEM_COUNT = gql`
+  query {
+    itemCount @client
+  }
+`;
+
 export const resolvers = {
   Mutation: {
     toggleCartHidden: (_root, _args, { cache }) => {
@@ -54,6 +61,14 @@ export const resolvers = {
 
       // Add new item to cart => returns newCartItems array
       const newCartItems = addItemToCart(cartItems, item);
+
+      // Calculate & cache itemCount
+      cache.writeQuery({
+        query: GET_ITEM_COUNT,
+        data: {
+          itemCount: getCartItemCount(newCartItems),
+        },
+      });
 
       // Update cartItems array in local cache => with newCartItems
       cache.writeQuery({
