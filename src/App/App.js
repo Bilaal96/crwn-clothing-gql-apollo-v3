@@ -32,8 +32,6 @@ class App extends React.Component {
         });
       }
 
-      localStorage.setItem('currentUser', userAuth);
-
       // No user, set currentUser to null
       setCurrentUser(userAuth);
     });
