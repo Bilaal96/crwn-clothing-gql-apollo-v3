@@ -3,6 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 
 import Header from './header.component';
 
+// GraphQL Operations
 import { GET_CLIENT_PROPERTIES } from '../../graphql/queries';
 import { CLEAR_CART_ITEMS } from '../../graphql/mutations';
 
