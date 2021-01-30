@@ -1,22 +1,16 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
 
 import Header from './header.component';
 
-// Client-side Query: retrieves isCartHidden value from local cache
-const GET_CART_HIDDEN = gql`
-  query {
-    isCartHidden @client
-  }
-`;
+import { GET_CLIENT_PROPERTIES } from '../../graphql/queries';
 
-const HeaderContainer = () => {
-  return (
-    <Query query={GET_CART_HIDDEN}>
-      {({ data }) => <Header isCartHidden={data.isCartHidden} />}
-    </Query>
-  );
-};
+const HeaderContainer = () => (
+  <Query query={GET_CLIENT_PROPERTIES}>
+    {({ data }) => (
+      <Header currentUser={data.currentUser} isCartHidden={data.isCartHidden} />
+    )}
+  </Query>
+);
 
 export default HeaderContainer;

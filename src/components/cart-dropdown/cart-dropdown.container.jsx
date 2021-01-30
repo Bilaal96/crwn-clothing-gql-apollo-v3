@@ -1,22 +1,11 @@
 import React from 'react';
 import { Query, Mutation } from 'react-apollo';
-import { gql } from 'apollo-boost';
 
 import CartDropdown from './cart-dropdown.component';
 
-// Retrieves toggleCartHidden() Mutation Resolver
-const TOGGLE_CART_HIDDEN = gql`
-  mutation toggleCartHidden {
-    toggleCartHidden @client
-  }
-`;
-
-// Retrieves cartItems value from local cache
-const GET_CART_ITEMS = gql`
-  query {
-    cartItems @client
-  }
-`;
+// GraphQL Operations
+import { GET_CART_ITEMS } from '../../graphql/queries';
+import { TOGGLE_CART_HIDDEN } from '../../graphql/mutations';
 
 // Gets toggleCartHidden() & cartItems and pass as props to CartDropdown
 const CartDropdownContainer = () => (

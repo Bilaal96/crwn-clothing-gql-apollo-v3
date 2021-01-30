@@ -1,27 +1,15 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import flowRight from 'lodash.flowright';
-import { gql } from 'apollo-boost';
 
 import CheckoutItem from './checkout-item.component';
 
-const ADD_ITEM_TO_CART = gql`
-  mutation AddItemToCart($item: Item!) {
-    addItemToCart(item: $item) @client
-  }
-`;
-
-const REMOVE_ITEM_FROM_CART = gql`
-  mutation RemoveItemFromCart($item: Item!) {
-    removeItemFromCart(item: $item) @client
-  }
-`;
-
-const CLEAR_ITEM_FROM_CART = gql`
-  mutation ClearItemFromCart($item: Item!) {
-    clearItemFromCart(item: $item) @client
-  }
-`;
+// GraphQL Operations
+import {
+  ADD_ITEM_TO_CART,
+  REMOVE_ITEM_FROM_CART,
+  CLEAR_ITEM_FROM_CART,
+} from '../../graphql/mutations';
 
 const CheckoutItemContainer = ({
   addItemToCart,

@@ -1,5 +1,6 @@
 import { gql } from 'apollo-boost';
 
+// Cart Utility Functions
 import {
   addItemToCart,
   removeItemFromCart,
@@ -8,50 +9,53 @@ import {
   getCartTotal,
 } from './cart.utils';
 
-// Extend Backend Mutation Schema to include new type: ToggleCartHidden
-// NOTE: type Mutation defines all possible mutation operations
+// Client Side Queries
+import {
+  GET_CART_HIDDEN,
+  GET_ITEM_COUNT,
+  GET_CART_TOTAL,
+  GET_CART_ITEMS,
+  GET_CURRENT_USER,
+} from './queries';
+
+/** Type Definitions
+ * extend Item type to include quantity field
+ 
+ * Define Client-side Types:
+  - User
+  - DateTime 
+
+ * extend Mutation type to define all possible mutations; including:
+  - For Cart: ToggleCartHidden, AddItemToCart, RemoveItemFromCart, ClearItemFromCart
+  - For User: SetCurrentUser
+ */
 export const typeDefs = gql`
   extend type Item {
     quantity: Int
   }
 
+  extend type DateTime {
+    seconds: Int!
+    nanoseconds: Int!
+  }
+
+  extend type User {
+    id: ID!
+    displayName: String!
+    email: String!
+    createdAt: DateTime!
+  }
+
   extend type Mutation {
     ToggleCartHidden: Boolean!
     AddItemToCart(item: Item!): [Item]!
-    RemoveItemFromCart(item: Item!): [Item!]
-    ClearItemFromCart(item: Item!): [Item!]
+    RemoveItemFromCart(item: Item!): [Item]!
+    ClearItemFromCart(item: Item!): [Item]!
+    SetCurrentUser(user: User!): User
   }
 `;
 
-// Client-side Queries
-// retrieve isCartHidden value from local cache
-const GET_CART_HIDDEN = gql`
-  query {
-    isCartHidden @client
-  }
-`;
-
-// retrieve itemCount value from local cache
-const GET_ITEM_COUNT = gql`
-  query {
-    itemCount @client
-  }
-`;
-
-// retrieve cartTotal value from local cache
-const GET_CART_TOTAL = gql`
-  query {
-    cartTotal @client
-  }
-`;
-
-// retrieve cartItems value from local cache
-const GET_CART_ITEMS = gql`
-  query {
-    cartItems @client
-  }
-`;
-
+// Update Local Cache after modifying cartItems Array
 const updateCartItemsRelatedQueries = (cache, newCartItems) => {
   // Calculate & cache new itemCount
   cache.writeQuery({
@@ -78,6 +82,7 @@ const updateCartItemsRelatedQueries = (cache, newCartItems) => {
   });
 };
 
+// Local Mutation Resolvers
 export const resolvers = {
   Mutation: {
     toggleCartHidden: (_root, _args, { cache }) => {
@@ -128,6 +133,17 @@ export const resolvers = {
       updateCartItemsRelatedQueries(cache, newCartItems);
 
       return newCartItems;
+    },
+    setCurrentUser: (_root, { user }, { cache }) => {
+      // Update currentUser local cache value
+      cache.writeQuery({
+        query: GET_CURRENT_USER,
+        data: {
+          currentUser: user,
+        },
+      });
+
+      return user;
     },
   },
 };
