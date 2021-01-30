@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './redux/store';
+// Apollo Cache Persist
+import { persistCache } from 'apollo-cache-persist';
 
 // Apollo Client
 import { createHttpLink } from 'apollo-link-http';
@@ -23,6 +25,12 @@ import { default as App } from './App/App.container';
 const httpLink = createHttpLink({ uri: 'https://crwn-clothing.com' });
 const cache = new InMemoryCache();
 
+// Persist Local Cache
+const persistApolloClientCache = async () =>
+  await persistCache({ cache, storage: window.localStorage });
+
+persistApolloClientCache();
+
 // Instantiate Apollo Client
 const client = new ApolloClient({
   link: httpLink,
@@ -38,13 +46,13 @@ cache.writeData({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Provider store={store}>
-      <BrowserRouter>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
-      </BrowserRouter>
-    </Provider>
+    {/* <Provider store={store}> */}
+    <BrowserRouter>
+      {/* <PersistGate persistor={persistor}> */}
+      <App />
+      {/* </PersistGate> */}
+    </BrowserRouter>
+    {/* </Provider> */}
   </ApolloProvider>,
   document.getElementById('root')
 );

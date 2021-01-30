@@ -51,6 +51,7 @@ export const typeDefs = gql`
     AddItemToCart(item: Item!): [Item]!
     RemoveItemFromCart(item: Item!): [Item]!
     ClearItemFromCart(item: Item!): [Item]!
+    ClearCartItems: [Item]!
     SetCurrentUser(user: User!): User
   }
 `;
@@ -133,6 +134,9 @@ export const resolvers = {
       updateCartItemsRelatedQueries(cache, newCartItems);
 
       return newCartItems;
+    },
+    clearCartItems: (_root, _args, { cache }) => {
+      updateCartItemsRelatedQueries(cache, []);
     },
     setCurrentUser: (_root, { user }, { cache }) => {
       // Update currentUser local cache value

@@ -9,7 +9,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser, isCartHidden }) => (
+const Header = ({ currentUser, isCartHidden, clearCartItems }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo" />
@@ -22,7 +22,13 @@ const Header = ({ currentUser, isCartHidden }) => (
         CONTACT
       </Link>
       {currentUser ? (
-        <div className="option" onClick={() => auth.signOut()}>
+        <div
+          className="option"
+          onClick={() => {
+            auth.signOut();
+            clearCartItems();
+          }}
+        >
           SIGN OUT
         </div>
       ) : (
