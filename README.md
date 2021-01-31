@@ -61,6 +61,7 @@ Apollo Client 3 introduces some new concepts. Some of these concepts replace (no
 Additionally, [apollo3-cache-persist](https://github.com/apollographql/apollo-cache-persist) was released for data persistence with Apollo Client 3 cache implementations.
 
 As a result of this, the next step is to migrate the project in this repo from Apollo Client v2 to v3 and include Apollo React Hooks.
+The GitHub Repo link for the Apollo Client 3 integration is: [crwn-clothing-gql-apollo-v3](https://github.com/Bilaal96/crwn-clothing-gql-apollo-v3)
 
 ## CRWN Clothing: React-Redux Project Links
 
