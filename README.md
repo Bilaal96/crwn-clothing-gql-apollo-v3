@@ -1,1 +1,1 @@
-#CRWN Clothing App - Migration To Apollo Client 3
+# CRWN Clothing App - Migration From Apollo Client 2 to Apollo Client 3
