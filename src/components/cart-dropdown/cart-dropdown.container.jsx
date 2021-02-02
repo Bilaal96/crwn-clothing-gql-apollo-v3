@@ -1,25 +1,15 @@
 import React from 'react';
-import { Query, Mutation } from '@apollo/client/react/components';
+import { Query } from '@apollo/client/react/components';
 
 import CartDropdown from './cart-dropdown.component';
 
 // GraphQL Operations
 import { GET_CART_ITEMS } from '../../graphql/queries';
-import { TOGGLE_CART_HIDDEN } from '../../graphql/mutations';
 
 // Gets toggleCartHidden() & cartItems and pass as props to CartDropdown
 const CartDropdownContainer = () => (
-  <Mutation mutation={TOGGLE_CART_HIDDEN}>
-    {(toggleCartHidden) => (
-      <Query query={GET_CART_ITEMS}>
-        {({ data }) => (
-          <CartDropdown
-            cartItems={data.cartItems}
-            toggleCartHidden={toggleCartHidden}
-          />
-        )}
-      </Query>
-    )}
-  </Mutation>
+  <Query query={GET_CART_ITEMS}>
+    {({ data }) => <CartDropdown cartItems={data.cartItems} />}
+  </Query>
 );
 export default CartDropdownContainer;

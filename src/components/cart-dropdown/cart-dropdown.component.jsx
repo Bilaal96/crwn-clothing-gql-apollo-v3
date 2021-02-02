@@ -1,12 +1,16 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+// Cart Utils
+import { toggleCartHidden } from '../../graphql/cart.utils';
+
+// Components
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
 
 import './cart-dropdown.styles.scss';
 
-const CartDropdown = ({ cartItems, history, toggleCartHidden }) => (
+const CartDropdown = ({ cartItems, history }) => (
   <div className="cart-dropdown">
     <div className="cart-items">
       {cartItems.length ? (
