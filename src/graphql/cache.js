@@ -54,38 +54,3 @@ export const cartItemsVar = makeVar([]);
 export const cartTotalVar = makeVar(0);
 export const itemCountVar = makeVar(0);
 export const currentUserVar = makeVar(null);
-
-// ! REMOVE
-/* export const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        isCartHidden: {
-          read(isCartHidden = true) {
-            return isCartHidden;
-          },
-        },
-        cartItems: {
-          read(cartItems = []) {
-            return cartItems;
-          },
-        },
-        cartTotal: {
-          read(cartTotal = 0) {
-            return cartTotal;
-          },
-        },
-        itemCount: {
-          read(itemCount = 0) {
-            return itemCount;
-          },
-        },
-        currentUser: {
-          read(currentUser = null) {
-            return currentUser;
-          },
-        },
-      },
-    },
-  },
-}); */
