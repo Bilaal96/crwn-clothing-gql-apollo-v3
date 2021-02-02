@@ -1,3 +1,8 @@
+import { cartItemsVar, isCartHiddenVar } from './cache';
+
+// Utility Functions for updating Reactive Vars related to Cart
+export const toggleCartHidden = () => isCartHiddenVar(!isCartHiddenVar());
+
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === cartItemToAdd.id
@@ -32,6 +37,8 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
 
 export const clearItemFromCart = (cartItems, cartItemToClear) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+
+export const clearCartItems = () => cartItemsVar([]);
 
 export const getCartItemCount = (cartItems) =>
   cartItems.reduce(

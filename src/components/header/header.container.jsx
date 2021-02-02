@@ -1,26 +1,17 @@
 import React from 'react';
-import { Query, Mutation } from 'react-apollo';
+import { Query } from '@apollo/client/react/components';
 
 import Header from './header.component';
 
 // GraphQL Operations
 import { GET_CLIENT_PROPERTIES } from '../../graphql/queries';
-import { CLEAR_CART_ITEMS } from '../../graphql/mutations';
 
 const HeaderContainer = () => (
-  <Mutation mutation={CLEAR_CART_ITEMS}>
-    {(clearCartItems) => (
-      <Query query={GET_CLIENT_PROPERTIES}>
-        {({ data }) => (
-          <Header
-            currentUser={data.currentUser}
-            isCartHidden={data.isCartHidden}
-            clearCartItems={clearCartItems}
-          />
-        )}
-      </Query>
+  <Query query={GET_CLIENT_PROPERTIES}>
+    {({ data }) => (
+      <Header currentUser={data.currentUser} isCartHidden={data.isCartHidden} />
     )}
-  </Mutation>
+  </Query>
 );
 
 export default HeaderContainer;

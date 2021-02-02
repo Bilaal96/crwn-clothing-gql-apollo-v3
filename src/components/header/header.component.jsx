@@ -1,15 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { auth } from '../../firebase/firebase.utils';
+// Components
 import { default as CartIcon } from '../cart-icon/cart-icon.container';
 import { default as CartDropdown } from '../cart-dropdown/cart-dropdown.container';
 
+// Logo
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+
+// Firebase Auth
+import { auth } from '../../firebase/firebase.utils';
+
+// Cart Utils
+import { clearCartItems } from '../../graphql/cart.utils';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser, isCartHidden, clearCartItems }) => (
+const Header = ({ currentUser, isCartHidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
       <Logo className="logo" />

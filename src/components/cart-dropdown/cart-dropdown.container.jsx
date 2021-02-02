@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from '@apollo/client/react/components';
 
 import CartDropdown from './cart-dropdown.component';
 
@@ -22,5 +22,4 @@ const CartDropdownContainer = () => (
     )}
   </Mutation>
 );
-
 export default CartDropdownContainer;

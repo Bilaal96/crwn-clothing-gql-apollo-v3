@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
+import { graphql } from '@apollo/client/react/hoc';
 import flowRight from 'lodash.flowright';
 
 import CheckoutItem from './checkout-item.component';

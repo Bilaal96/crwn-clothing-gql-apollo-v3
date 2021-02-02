@@ -2,43 +2,72 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-// Apollo Cache Persist
-import { persistCache } from 'apollo-cache-persist';
+// ! TBD - Replace with Apollo3 Cache Persist or manually set Local Storage
+// import { persistCache } from 'apollo-cache-persist';
 
 // Apollo Client
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, ApolloProvider, gql } from '@apollo/client';
 
-// Apollo Cache
-import { typeDefs, resolvers } from './graphql/resolvers';
-import INITIAL_DATA from './graphql/initial-data';
+import { cache } from './graphql/cache';
 
 import './index.css'; // Must be imported before AppContainer
 import { default as App } from './App/App.container';
 
-// ApolloClient Config
-const httpLink = createHttpLink({ uri: 'https://crwn-clothing.com' });
-const cache = new InMemoryCache();
+// ----- ApolloClient Configuration -----
 
+// ! TBD - Replace with Apollo3 Cache Persist or manually set Local Storage
 // Persist Local Cache
+/* 
 const persistApolloClientCache = async () =>
   await persistCache({ cache, storage: window.localStorage });
 
-persistApolloClientCache();
+persistApolloClientCache(); 
+*/
 
-// Instantiate Apollo Client
+/** 
+ * --- Type Definitions ---
+ * extend Item type to include quantity field
+ 
+ * Define Client-side Types:
+  - User
+  - DateTime 
+
+ * extend Mutation type to define all possible mutations; including:
+  - For Cart: ToggleCartHidden, AddItemToCart, RemoveItemFromCart, ClearItemFromCart
+  - For User: SetCurrentUser
+ */
+const typeDefs = gql`
+  extend type Item {
+    quantity: Int
+  }
+
+  extend type DateTime {
+    seconds: Int!
+    nanoseconds: Int!
+  }
+
+  extend type User {
+    id: ID!
+    displayName: String!
+    email: String!
+    createdAt: DateTime!
+  }
+
+  extend type Mutation {
+    ToggleCartHidden: Boolean!
+    AddItemToCart(item: Item!): [Item]!
+    RemoveItemFromCart(item: Item!): [Item]!
+    ClearItemFromCart(item: Item!): [Item]!
+    ClearCartItems: [Item]!
+    SetCurrentUser(user: User!): User
+  }
+`;
+
+// --- Instantiate Apollo Client ---
 const client = new ApolloClient({
-  link: httpLink,
+  uri: 'https://crwn-clothing.com',
   cache,
   typeDefs,
-  resolvers,
-});
-
-// Set Initial Values for In-Memory Cache
-cache.writeData({
-  data: INITIAL_DATA,
 });
 
 ReactDOM.render(

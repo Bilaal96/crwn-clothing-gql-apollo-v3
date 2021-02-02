@@ -1,3 +1,4 @@
+// !
 const INITIAL_DATA = {
   isCartHidden: true,
   cartItems: [],

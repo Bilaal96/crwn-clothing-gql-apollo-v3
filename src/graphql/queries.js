@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 // ----- Server-side Queries -----
 // --- Collection Related Queries ---
