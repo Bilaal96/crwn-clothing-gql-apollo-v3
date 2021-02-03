@@ -2,27 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
-// ! TBD - Replace with Apollo3 Cache Persist or manually set Local Storage
-// import { persistCache } from 'apollo-cache-persist';
+// Apollo Cache Persist
+import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 // Apollo Client
+// -- Config components & functions
 import { ApolloClient, ApolloProvider, gql } from '@apollo/client';
-
+// -- Cache
 import { cache } from './graphql/cache';
 
 import './index.css'; // Must be imported before AppContainer
 import { default as App } from './App/App.container';
 
 // ----- ApolloClient Configuration -----
-
-// ! TBD - Replace with Apollo3 Cache Persist or manually set Local Storage
-// Persist Local Cache
-/* 
+// --- Persist Local Cache ---
 const persistApolloClientCache = async () =>
-  await persistCache({ cache, storage: window.localStorage });
+  await persistCache({
+    cache,
+    storage: new LocalStorageWrapper(window.localStorage),
+  });
 
-persistApolloClientCache(); 
-*/
+persistApolloClientCache();
 
 /**
  * --- Type Definitions ---

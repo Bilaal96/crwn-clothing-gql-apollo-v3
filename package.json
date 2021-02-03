@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.7",
-    "apollo-cache-persist": "^0.1.1",
+    "apollo3-cache-persist": "^0.9.1",
     "firebase": "6.0.2",
     "graphql": "^15.4.0",
     "lodash.flowright": "^3.5.0",
