@@ -29,6 +29,7 @@ class App extends React.Component {
             id: snapShot.id,
             ...snapShot.data(),
           });
+
           console.log('Logged In', currentUserVar());
         });
       } else {

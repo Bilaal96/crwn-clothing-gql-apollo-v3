@@ -24,42 +24,13 @@ const persistApolloClientCache = async () =>
 persistApolloClientCache(); 
 */
 
-/** 
+/**
  * --- Type Definitions ---
  * extend Item type to include quantity field
- 
- * Define Client-side Types:
-  - User
-  - DateTime 
-
- * extend Mutation type to define all possible mutations; including:
-  - For Cart: ToggleCartHidden, AddItemToCart, RemoveItemFromCart, ClearItemFromCart
-  - For User: SetCurrentUser
  */
 const typeDefs = gql`
   extend type Item {
     quantity: Int
-  }
-
-  extend type DateTime {
-    seconds: Int!
-    nanoseconds: Int!
-  }
-
-  extend type User {
-    id: ID!
-    displayName: String!
-    email: String!
-    createdAt: DateTime!
-  }
-
-  extend type Mutation {
-    ToggleCartHidden: Boolean!
-    AddItemToCart(item: Item!): [Item]!
-    RemoveItemFromCart(item: Item!): [Item]!
-    ClearItemFromCart(item: Item!): [Item]!
-    ClearCartItems: [Item]!
-    SetCurrentUser(user: User!): User
   }
 `;
 
