@@ -12,7 +12,7 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 
 // Cart Utils
-import { clearCartItems } from '../../graphql/cart.utils';
+import { clearAllCartItems } from '../../graphql/cart.utils';
 
 import './header.styles.scss';
 
@@ -33,7 +33,7 @@ const Header = ({ currentUser, isCartHidden }) => (
           className="option"
           onClick={() => {
             auth.signOut();
-            clearCartItems();
+            clearAllCartItems();
           }}
         >
           SIGN OUT

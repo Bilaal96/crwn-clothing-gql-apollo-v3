@@ -9,7 +9,6 @@ import {
 // Utility Functions for updating Reactive Vars related to Cart
 export const toggleCartHidden = () => {
   isCartHiddenVar(!isCartHiddenVar());
-  console.log('CART TOGGLED');
 };
 
 export const calculateCartItemCount = (cartItems) =>
@@ -36,8 +35,6 @@ const updateCartItemsLocalFields = (cartItems) => {
   itemCountVar(newItemCount);
   cartTotalVar(newCartTotal);
 
-  console.log('CART LOCAL FIELDS UPDATED');
-
   return cartItems;
 };
 
@@ -58,14 +55,11 @@ export const addItemToCart = (cartItemToAdd) => {
         : cartItem
     );
 
-    console.log('ADDED EXISTING ITEM TO CART');
-
     return updateCartItemsLocalFields(newCartItems);
   }
 
   // For non-existant items, add cartItemToAdd to cartItems array with quanity of 1
   const newCartItems = [...cartItems, { ...cartItemToAdd, quantity: 1 }];
-  console.log('ADDED NEW ITEM TO CART');
 
   return updateCartItemsLocalFields(newCartItems);
 };
@@ -85,8 +79,6 @@ export const removeItemFromCart = (cartItemToRemove) => {
       (cartItem) => cartItem.id !== cartItemToRemove.id
     );
 
-    console.log('REMOVE ITEM FROM CART, Q === 1');
-
     return updateCartItemsLocalFields(newCartItems);
   }
 
@@ -97,7 +89,6 @@ export const removeItemFromCart = (cartItemToRemove) => {
       : cartItem
   );
 
-  console.log('REMOVE ITEM FROM CART, Q > 1');
   return updateCartItemsLocalFields(newCartItems);
 };
 
@@ -109,12 +100,8 @@ export const clearItemFromCart = (cartItemToClear) => {
     (cartItem) => cartItem.id !== cartItemToClear.id
   );
 
-  console.log('CLEAR ITEM FROM CART');
-
   return updateCartItemsLocalFields(newCartItems);
 };
 
-// Clears all cartItems
-// TODO: RENAME : clearAllCartItems
-// TODO: call updateCartItemsLocalFields() to update related local fields
-export const clearCartItems = () => cartItemsVar([]);
+// Clears all cartItems from cart
+export const clearAllCartItems = () => updateCartItemsLocalFields([]);
