@@ -26,19 +26,19 @@ export const calculateCartTotal = (cartItems) =>
   );
 
 // Updates Apollo Cache Local Fields related to cartItems when cartItems is modified
-const updateCartItemsLocalFields = (newCartItems) => {
+const updateCartItemsLocalFields = (cartItems) => {
   // Calculate new itemCount & cartTotal values
-  const newItemCount = calculateCartItemCount(newCartItems);
-  const newCartTotal = calculateCartTotal(newCartItems);
+  const newItemCount = calculateCartItemCount(cartItems);
+  const newCartTotal = calculateCartTotal(cartItems);
 
   // Update Reactive Variables with calculated values
-  cartItemsVar(newCartItems);
+  cartItemsVar(cartItems);
   itemCountVar(newItemCount);
   cartTotalVar(newCartTotal);
 
   console.log('CART LOCAL FIELDS UPDATED');
 
-  return newCartItems;
+  return cartItems;
 };
 
 export const addItemToCart = (cartItemToAdd) => {
@@ -70,23 +70,51 @@ export const addItemToCart = (cartItemToAdd) => {
   return updateCartItemsLocalFields(newCartItems);
 };
 
-export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+export const removeItemFromCart = (cartItemToRemove) => {
+  // Get cartItems
+  const cartItems = cartItemsVar();
+
+  // Check if cartItemToAdd exists in cartItems
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === cartItemToRemove.id
   );
 
+  // If item quantity equals 1, clear the item from the cart
   if (existingCartItem.quantity === 1) {
-    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+    const newCartItems = cartItems.filter(
+      (cartItem) => cartItem.id !== cartItemToRemove.id
+    );
+
+    console.log('REMOVE ITEM FROM CART, Q === 1');
+
+    return updateCartItemsLocalFields(newCartItems);
   }
 
-  return cartItems.map((cartItem) =>
+  // If item quanity > 1, subtract 1 from quantity
+  const newCartItems = cartItems.map((cartItem) =>
     cartItem.id === cartItemToRemove.id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
       : cartItem
   );
+
+  console.log('REMOVE ITEM FROM CART, Q > 1');
+  return updateCartItemsLocalFields(newCartItems);
 };
 
-export const clearItemFromCart = (cartItems, cartItemToClear) =>
-  cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+// Clear single item from cart, regardless of quantity value
+export const clearItemFromCart = (cartItemToClear) => {
+  const cartItems = cartItemsVar();
 
+  const newCartItems = cartItems.filter(
+    (cartItem) => cartItem.id !== cartItemToClear.id
+  );
+
+  console.log('CLEAR ITEM FROM CART');
+
+  return updateCartItemsLocalFields(newCartItems);
+};
+
+// Clears all cartItems
+// TODO: RENAME : clearAllCartItems
+// TODO: call updateCartItemsLocalFields() to update related local fields
 export const clearCartItems = () => cartItemsVar([]);

@@ -1,8 +1,15 @@
 import React from 'react';
 
+// Cart Utils
+import {
+  addItemToCart as addItem,
+  removeItemFromCart as removeItem,
+  clearItemFromCart as clearItem,
+} from '../../graphql/cart.utils';
+
 import './checkout-item.styles.scss';
 
-const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
+const CheckoutItem = ({ cartItem }) => {
   const { name, imageUrl, price, quantity } = cartItem;
   return (
     <div className="checkout-item">
