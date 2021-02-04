@@ -1,17 +1,17 @@
 import React from 'react';
-import { Query } from '@apollo/client/react/components';
+import { useQuery } from '@apollo/client';
 
 import Header from './header.component';
 
 // GraphQL Operations
 import { GET_CLIENT_PROPERTIES } from '../../apollo-client/queries';
 
-const HeaderContainer = () => (
-  <Query query={GET_CLIENT_PROPERTIES}>
-    {({ data }) => (
-      <Header currentUser={data.currentUser} isCartHidden={data.isCartHidden} />
-    )}
-  </Query>
-);
+const HeaderContainer = () => {
+  const { data } = useQuery(GET_CLIENT_PROPERTIES);
+
+  const { currentUser, isCartHidden } = data;
+
+  return <Header currentUser={currentUser} isCartHidden={isCartHidden} />;
+};
 
 export default HeaderContainer;

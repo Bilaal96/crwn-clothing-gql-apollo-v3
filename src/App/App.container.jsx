@@ -1,19 +1,17 @@
 import React from 'react';
-import { Query } from '@apollo/client/react/components';
+import { useQuery } from '@apollo/client';
 
 import App from './App';
 
 // GraphQL Operations
 import { GET_CURRENT_USER } from '../apollo-client/queries';
 
-const AppContainer = () => (
-  <Query query={GET_CURRENT_USER}>
-    {({ data }) => {
-      const { currentUser } = data;
+const AppContainer = () => {
+  const { data } = useQuery(GET_CURRENT_USER);
 
-      return <App currentUser={currentUser} />;
-    }}
-  </Query>
-);
+  const { currentUser } = data;
+
+  return <App currentUser={currentUser} />;
+};
 
 export default AppContainer;

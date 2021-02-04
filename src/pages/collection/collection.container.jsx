@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from '@apollo/client/react/components';
+import { useQuery } from '@apollo/client';
 
 import CollectionPage from './collection.component';
 import Spinner from '../../components/spinner/spinner.component';
@@ -8,24 +8,18 @@ import Spinner from '../../components/spinner/spinner.component';
 import { GET_COLLECTION_BY_TITLE } from '../../apollo-client/queries';
 
 const CollectionPageContainer = ({ match }) => {
-  return (
-    <Query
-      query={GET_COLLECTION_BY_TITLE}
-      variables={{ title: match.params.collectionId }}
-    >
-      {({ data, loading, error }) => {
-        if (loading) return <Spinner />;
-        if (error) return <h2>Error: {error.message}</h2>;
+  const { data, loading, error } = useQuery(GET_COLLECTION_BY_TITLE, {
+    variables: {
+      title: match.params.collectionId,
+    },
+  });
 
-        return (
-          data &&
-          data.getCollectionsByTitle && (
-            <CollectionPage collection={data.getCollectionsByTitle} />
-          )
-        );
-      }}
-    </Query>
-  );
+  if (loading) return <Spinner />;
+  if (error) return <h2>Error: {error.message}</h2>;
+
+  const { getCollectionsByTitle } = data;
+
+  return <CollectionPage collection={getCollectionsByTitle} />;
 };
 
 export default CollectionPageContainer;

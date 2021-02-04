@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from '@apollo/client/react/components';
+import { useQuery } from '@apollo/client';
 
 import CartIcon from './cart-icon.component';
 
@@ -7,10 +7,12 @@ import CartIcon from './cart-icon.component';
 import { GET_ITEM_COUNT } from '../../apollo-client/queries';
 
 // Provide CartIcon with access to itemCount value from local cache
-const CartIconContainer = () => (
-  <Query query={GET_ITEM_COUNT}>
-    {({ data }) => <CartIcon itemCount={data.itemCount} />}
-  </Query>
-);
+const CartIconContainer = () => {
+  const { data } = useQuery(GET_ITEM_COUNT);
+
+  const { itemCount } = data;
+
+  return <CartIcon itemCount={itemCount} />;
+};
 
 export default CartIconContainer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from '@apollo/client/react/components';
+import { useQuery } from '@apollo/client';
 
 import CartDropdown from './cart-dropdown.component';
 
@@ -7,9 +7,12 @@ import CartDropdown from './cart-dropdown.component';
 import { GET_CART_ITEMS } from '../../apollo-client/queries';
 
 // Gets toggleCartHidden() & cartItems and pass as props to CartDropdown
-const CartDropdownContainer = () => (
-  <Query query={GET_CART_ITEMS}>
-    {({ data }) => <CartDropdown cartItems={data.cartItems} />}
-  </Query>
-);
+const CartDropdownContainer = () => {
+  const { data } = useQuery(GET_CART_ITEMS);
+
+  const { cartItems } = data;
+
+  return <CartDropdown cartItems={cartItems} />;
+};
+
 export default CartDropdownContainer;
