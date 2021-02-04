@@ -1,11 +1,11 @@
 // Reactive Vars - Local Cart State
+// NOTE: the term "Local Cart State" refers to --> the values of the Reactive Vars related to cartItems
 import {
   cartItemsVar,
   cartTotalVar,
   itemCountVar,
 } from '../apollo-client/cache';
 
-// NOTE: the term "Local Cart State" refers to --> the values of the Reactive Vars related to cartItems
 // NOTE: LS is an abbreviation for Local Storage
 
 // Set Local Cart State in LS

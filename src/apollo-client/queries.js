@@ -1,37 +1,50 @@
 import { gql } from '@apollo/client';
 
 // ----- Server-side Queries -----
+// --- Reusable GraphQL Fragments ---
+export const CollectionDetails = gql`
+  fragment CollectionDetails on Collection {
+    id
+    title
+  }
+`;
+
+export const ItemDetails = gql`
+  fragment ItemDetails on Item {
+    id
+    name
+    price
+    imageUrl
+  }
+`;
+
 // --- Collection Related Queries ---
 // TYPE: Query, FIELD: collections
 export const GET_COLLECTIONS = gql`
-  query Collections {
+  query GetCollections {
     collections {
-      id
-      title
+      ...CollectionDetails
       items {
-        id
-        name
-        price
-        imageUrl
+        ...ItemDetails
       }
     }
   }
+  ${CollectionDetails}
+  ${ItemDetails}
 `;
 
 // TYPE: Query, FIELD: getCollectionsByTitle, VARIABLES: title:String
 export const GET_COLLECTION_BY_TITLE = gql`
   query GetCollectionByTitle($title: String!) {
     getCollectionsByTitle(title: $title) {
-      id
-      title
+      ...CollectionDetails
       items {
-        id
-        name
-        price
-        imageUrl
+        ...ItemDetails
       }
     }
   }
+  ${CollectionDetails}
+  ${ItemDetails}
 `;
 
 // ----- Client-side Queries to retrieve values from local cache -----

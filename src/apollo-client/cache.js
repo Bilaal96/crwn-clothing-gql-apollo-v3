@@ -4,7 +4,8 @@ import { InMemoryCache, makeVar } from '@apollo/client';
  * Field policies allow us to define local fields
  * When queried, local fields with a read() function return the value of corresponding field
  
- * We can use Reactive Variables to define the values of local fields and return the values in the read() function
+ * Within the read() function we can return Reactive Variables 
+ * With this method, a local field is queried, it returns the value of the Reactive Var
  */
 export const cache = new InMemoryCache({
   typePolicies: {
