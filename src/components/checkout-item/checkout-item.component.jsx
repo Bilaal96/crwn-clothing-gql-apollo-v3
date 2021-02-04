@@ -5,7 +5,7 @@ import {
   addItemToCart as addItem,
   removeItemFromCart as removeItem,
   clearItemFromCart as clearItem,
-} from '../../graphql/cart.utils';
+} from '../../utils/cart.utils';
 
 import './checkout-item.styles.scss';
 

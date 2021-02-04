@@ -4,7 +4,7 @@ import { Query } from '@apollo/client/react/components';
 import CartDropdown from './cart-dropdown.component';
 
 // GraphQL Operations
-import { GET_CART_ITEMS } from '../../graphql/queries';
+import { GET_CART_ITEMS } from '../../apollo-client/queries';
 
 // Gets toggleCartHidden() & cartItems and pass as props to CartDropdown
 const CartDropdownContainer = () => (

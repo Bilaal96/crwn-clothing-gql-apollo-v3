@@ -4,7 +4,7 @@ import { Query } from '@apollo/client/react/components';
 import App from './App';
 
 // GraphQL Operations
-import { GET_CURRENT_USER } from '../graphql/queries';
+import { GET_CURRENT_USER } from '../apollo-client/queries';
 
 const AppContainer = () => (
   <Query query={GET_CURRENT_USER}>

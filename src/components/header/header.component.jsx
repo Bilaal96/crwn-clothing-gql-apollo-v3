@@ -12,8 +12,8 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 
 // Cart Utils
-import { clearAllCartItems } from '../../graphql/cart.utils';
-import { clearLocalCartStateFromLS } from '../../graphql/local-storage.utils';
+import { clearAllCartItems } from '../../utils/cart.utils';
+import { clearLocalCartStateFromLS } from '../../utils/local-storage.utils';
 
 import './header.styles.scss';
 

@@ -4,7 +4,7 @@ import { Query } from '@apollo/client/react/components';
 import Header from './header.component';
 
 // GraphQL Operations
-import { GET_CLIENT_PROPERTIES } from '../../graphql/queries';
+import { GET_CLIENT_PROPERTIES } from '../../apollo-client/queries';
 
 const HeaderContainer = () => (
   <Query query={GET_CLIENT_PROPERTIES}>

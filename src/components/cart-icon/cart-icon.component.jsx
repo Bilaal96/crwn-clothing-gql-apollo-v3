@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Cart Utils
-import { toggleCartHidden } from '../../graphql/cart.utils';
+import { toggleCartHidden } from '../../utils/cart.utils';
 
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 

@@ -5,7 +5,7 @@ import CollectionsOverview from './collections-overview.component';
 import Spinner from '../spinner/spinner.component';
 
 // GraphQL Operations
-import { GET_COLLECTIONS } from '../../graphql/queries';
+import { GET_COLLECTIONS } from '../../apollo-client/queries';
 
 const CollectionsOverviewContainer = () => {
   return (

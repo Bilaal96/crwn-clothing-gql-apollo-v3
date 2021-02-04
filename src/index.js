@@ -6,13 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
 // Local Storage Util
-import { persistLocalCartStateToLS } from './graphql/local-storage.utils';
+import { persistLocalCartStateToLS } from './utils/local-storage.utils';
 
 // Apollo Client
 // -- Config components & functions
 import { ApolloClient, ApolloProvider, gql } from '@apollo/client';
 // -- Cache
-import { cache } from './graphql/cache';
+import { cache } from './apollo-client/cache';
 
 import './index.css'; // Must be imported before AppContainer
 import { default as App } from './App/App.container';
@@ -32,7 +32,7 @@ persistApolloClientCache();
  * Reactive vars are used to set the local state in the application
  * They're Apollo Client's equivalent of React's useState hook
  
- * LINK ./graphql/local-storage.utils.js:30
+ * LINK ./utils/local-storage.utils.js:30
  */
 persistLocalCartStateToLS();
 

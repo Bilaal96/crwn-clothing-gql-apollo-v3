@@ -5,7 +5,7 @@ import CollectionPage from './collection.component';
 import Spinner from '../../components/spinner/spinner.component';
 
 // GraphQL Operations
-import { GET_COLLECTION_BY_TITLE } from '../../graphql/queries';
+import { GET_COLLECTION_BY_TITLE } from '../../apollo-client/queries';
 
 const CollectionPageContainer = ({ match }) => {
   return (

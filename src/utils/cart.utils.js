@@ -4,7 +4,7 @@ import {
   cartItemsVar,
   cartTotalVar,
   itemCountVar,
-} from './cache';
+} from '../apollo-client/cache';
 
 // Local Storage Utils
 import { setLocalCartStateInLS } from './local-storage.utils';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Cart Utils
-import { addItemToCart } from '../../graphql/cart.utils.js';
+import { addItemToCart } from '../../utils/cart.utils';
 
 // Components
 import CustomButton from '../custom-button/custom-button.component';

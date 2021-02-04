@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 // Cart Utils
-import { toggleCartHidden } from '../../graphql/cart.utils';
+import { toggleCartHidden } from '../../utils/cart.utils';
 
 // Components
 import CustomButton from '../custom-button/custom-button.component';

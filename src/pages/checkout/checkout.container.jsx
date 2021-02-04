@@ -4,7 +4,7 @@ import { Query } from '@apollo/client/react/components';
 import CheckoutPage from './checkout.component';
 
 // GraphQL Operations
-import { GET_CART_ITEMS_AND_TOTAL } from '../../graphql/queries';
+import { GET_CART_ITEMS_AND_TOTAL } from '../../apollo-client/queries';
 
 const CheckoutPageContainer = () => (
   <Query query={GET_CART_ITEMS_AND_TOTAL}>

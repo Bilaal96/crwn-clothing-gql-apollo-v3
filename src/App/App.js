@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Reactive Vars
-import { currentUserVar } from '../graphql/cache';
+import { currentUserVar } from '../apollo-client/cache';
 
 // Components
 import { default as Header } from '../components/header/header.container';
