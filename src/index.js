@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 // Apollo Cache Persist
 import { persistCache, LocalStorageWrapper } from 'apollo3-cache-persist';
 
+// Local Storage Util
+import { persistLocalCartStateToLS } from './graphql/local-storage.utils';
+
 // Apollo Client
 // -- Config components & functions
 import { ApolloClient, ApolloProvider, gql } from '@apollo/client';
@@ -14,7 +17,7 @@ import { cache } from './graphql/cache';
 import './index.css'; // Must be imported before AppContainer
 import { default as App } from './App/App.container';
 
-// ----- ApolloClient Configuration -----
+// ----- Data Persistence -----
 // --- Persist Local Cache ---
 const persistApolloClientCache = async () =>
   await persistCache({
@@ -24,6 +27,16 @@ const persistApolloClientCache = async () =>
 
 persistApolloClientCache();
 
+/**
+ * --- Persist Reactive Vars to LS ---
+ * Reactive vars are used to set the local state in the application
+ * They're Apollo Client's equivalent of React's useState hook
+ 
+ * LINK ./graphql/local-storage.utils.js:30
+ */
+persistLocalCartStateToLS();
+
+// ----- ApolloClient Configuration -----
 /**
  * --- Type Definitions ---
  * extend Item type to include quantity field

@@ -16,22 +16,26 @@ import { default as CheckoutPage } from '../pages/checkout/checkout.container';
 import { auth, createUserProfileDocument } from '../firebase/firebase.utils';
 
 import './App.css';
+
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      // if userAuth is a user object
       if (userAuth) {
+        // Log in
         const userRef = await createUserProfileDocument(userAuth);
 
+        // Set user in local state
         userRef.onSnapshot((snapShot) => {
           currentUserVar({
             id: snapShot.id,
             ...snapShot.data(),
           });
-
-          console.log('Logged In', currentUserVar());
         });
+
+        console.log('Logged In', currentUserVar());
       } else {
         // No user, set currentUser to null
         currentUserVar(userAuth);

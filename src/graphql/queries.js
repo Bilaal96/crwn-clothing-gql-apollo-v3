@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 // --- Collection Related Queries ---
 // TYPE: Query, FIELD: collections
 export const GET_COLLECTIONS = gql`
-  query {
+  query Collections {
     collections {
       id
       title

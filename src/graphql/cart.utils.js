@@ -6,17 +6,10 @@ import {
   itemCountVar,
 } from './cache';
 
-// Utility Functions for updating Reactive Vars related to Cart
-export const toggleCartHidden = () => {
-  isCartHiddenVar(!isCartHiddenVar());
-};
+// Local Storage Utils
+import { setLocalCartStateInLS } from './local-storage.utils';
 
-export const calculateCartItemCount = (cartItems) =>
-  cartItems.reduce(
-    (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
-    0
-  );
-
+// ----- Utils: Calculate Values For cartTotal & itemCount -----
 export const calculateCartTotal = (cartItems) =>
   cartItems.reduce(
     (accumulatedQuantity, cartItem) =>
@@ -24,20 +17,45 @@ export const calculateCartTotal = (cartItems) =>
     0
   );
 
-// Updates Apollo Cache Local Fields related to cartItems when cartItems is modified
-const updateCartItemsLocalFields = (cartItems) => {
+export const calculateCartItemCount = (cartItems) =>
+  cartItems.reduce(
+    (accumulatedQuantity, cartItem) => accumulatedQuantity + cartItem.quantity,
+    0
+  );
+
+// ----- Utils: Updating Reactive Vars Related To Cart -----
+// Toggle isCartHidden boolean
+export const toggleCartHidden = () => {
+  isCartHiddenVar(!isCartHiddenVar());
+};
+
+/** 
+ * --- updateLocalCartState() ---
+ * Updates Reactive Vars related to Cart 
+ * @param {updated array of cart items} cartItems 
+ 
+ * Uses cartItems to calculate new cartTotal & itemCount values
+ 
+ * Updated Reactive Vars with cartItems and calculated values
+ * Sets cartItems & calculated values in Local Storage
+*/
+const updateLocalCartState = (cartItems) => {
   // Calculate new itemCount & cartTotal values
-  const newItemCount = calculateCartItemCount(cartItems);
   const newCartTotal = calculateCartTotal(cartItems);
+  const newItemCount = calculateCartItemCount(cartItems);
 
   // Update Reactive Variables with calculated values
   cartItemsVar(cartItems);
-  itemCountVar(newItemCount);
   cartTotalVar(newCartTotal);
+  itemCountVar(newItemCount);
+
+  // Set Local Cart State in local storage
+  setLocalCartStateInLS(cartItems, newCartTotal, newItemCount);
 
   return cartItems;
 };
 
+// --- Add Item To Cart ---
 export const addItemToCart = (cartItemToAdd) => {
   // Get cartItems
   const cartItems = cartItemsVar();
@@ -55,15 +73,16 @@ export const addItemToCart = (cartItemToAdd) => {
         : cartItem
     );
 
-    return updateCartItemsLocalFields(newCartItems);
+    return updateLocalCartState(newCartItems);
   }
 
   // For non-existant items, add cartItemToAdd to cartItems array with quanity of 1
   const newCartItems = [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 
-  return updateCartItemsLocalFields(newCartItems);
+  return updateLocalCartState(newCartItems);
 };
 
+// --- Remove Single Item From Cart ---
 export const removeItemFromCart = (cartItemToRemove) => {
   // Get cartItems
   const cartItems = cartItemsVar();
@@ -79,7 +98,7 @@ export const removeItemFromCart = (cartItemToRemove) => {
       (cartItem) => cartItem.id !== cartItemToRemove.id
     );
 
-    return updateCartItemsLocalFields(newCartItems);
+    return updateLocalCartState(newCartItems);
   }
 
   // If item quanity > 1, subtract 1 from quantity
@@ -89,10 +108,11 @@ export const removeItemFromCart = (cartItemToRemove) => {
       : cartItem
   );
 
-  return updateCartItemsLocalFields(newCartItems);
+  return updateLocalCartState(newCartItems);
 };
 
-// Clear single item from cart, regardless of quantity value
+// --- Clear Single Item From Cart ---
+// regardless of quantity value
 export const clearItemFromCart = (cartItemToClear) => {
   const cartItems = cartItemsVar();
 
@@ -100,8 +120,10 @@ export const clearItemFromCart = (cartItemToClear) => {
     (cartItem) => cartItem.id !== cartItemToClear.id
   );
 
-  return updateCartItemsLocalFields(newCartItems);
+  return updateLocalCartState(newCartItems);
 };
 
-// Clears all cartItems from cart
-export const clearAllCartItems = () => updateCartItemsLocalFields([]);
+// --- Clears All cartItems From Cart ---
+export const clearAllCartItems = () => {
+  updateLocalCartState([]);
+};

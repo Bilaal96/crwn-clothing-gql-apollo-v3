@@ -13,6 +13,7 @@ import { auth } from '../../firebase/firebase.utils';
 
 // Cart Utils
 import { clearAllCartItems } from '../../graphql/cart.utils';
+import { clearLocalCartStateFromLS } from '../../graphql/local-storage.utils';
 
 import './header.styles.scss';
 
@@ -34,6 +35,7 @@ const Header = ({ currentUser, isCartHidden }) => (
           onClick={() => {
             auth.signOut();
             clearAllCartItems();
+            clearLocalCartStateFromLS();
           }}
         >
           SIGN OUT

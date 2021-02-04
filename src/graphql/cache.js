@@ -41,7 +41,7 @@ export const cache = new InMemoryCache({
 });
 
 /**
- * Reactive Variables (RVs)
+ * Initialise Reactive Variables (RVs)
  * When called without argument => returns value
  * When called with argument => stores argument as value
  
