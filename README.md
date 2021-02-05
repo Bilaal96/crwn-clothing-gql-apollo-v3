@@ -14,7 +14,7 @@ This project is my solution for:
 
 ## A Quick Summary of Changes From Apollo Client 2 to 3
 
-The main Apollo Client 3 changes of concern for our app are summarised in the table below.
+The main Apollo Client 3 changes of concern for this app are summarised in the table below.
 
 <br/>
 <table>
